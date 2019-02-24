@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hola-deploy
+spec:
+  replicas: 12
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: hola-mundo
+    spec:
+      containers:
+      - name: hola-pod
+        image: nigelpoulton/pluralsight-docker-ci:edge
+        ports:
+        - containerPort: 8080
